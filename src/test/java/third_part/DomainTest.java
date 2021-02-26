@@ -10,15 +10,25 @@ public class DomainTest extends Assert {
     static Sun sulianis;
     static Sun ram;
     static Skyline skyline;
+    static Person ford;
+    static Person zafod;
     @Before
     public void createSpace(){
         enviroment = new Enviroment();
         sulianis = new Sun("Сулианис", Shape.CIRCLE, false);
         ram = new Sun("Рам", Shape.CIRCLE, false);
         skyline = new Skyline(Brightness.DARKNESS);
+        ford = new Person("Форд", false);
+        zafod = new Person("Зафод", false);
         enviroment.setSkyline(skyline);
         enviroment.getSuns().add(sulianis);
         enviroment.getSuns().add(ram);
+        enviroment.getPeople().add(ford);
+        enviroment.getPeople().add(zafod);
+    }
+    @Test
+    public void arePeopleBlinded(){
+        assertEquals(0, enviroment.getAmountOfBlindedPeople());
     }
     @Test
     public void isBrightnessDarkness(){
@@ -38,6 +48,7 @@ public class DomainTest extends Assert {
         enviroment.setLight(light);
         assertEquals(Shape.POINT, enviroment.getLight().getShape());
         assertEquals(Brightness.DAZZLING, enviroment.getLight().getBrightness());
+        assertEquals(2, enviroment.getAmountOfBlindedPeople());
     }
     @Test
     public void resizeLight(){
@@ -45,6 +56,7 @@ public class DomainTest extends Assert {
         enviroment.setLight(light);
         enviroment.getLight().setShape(Shape.CRESCENT);
         assertEquals(Shape.CRESCENT, enviroment.getLight().getShape());
+        assertEquals(0, enviroment.getAmountOfBlindedPeople());
     }
     @Test
     public void firstSunOccurs(){

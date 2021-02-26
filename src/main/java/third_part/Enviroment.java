@@ -5,6 +5,16 @@ import java.util.ArrayList;
 public class Enviroment {
     private Skyline skyline;
     private ArrayList<Sun> suns;
+    private ArrayList<Person> people;
+
+    public ArrayList<Person> getPeople() {
+        return people;
+    }
+
+    public void setPeople(ArrayList<Person> people) {
+        this.people = people;
+    }
+
     private Light light;
 
     public Skyline getSkyline() {
@@ -15,12 +25,27 @@ public class Enviroment {
         this.skyline = skyline;
     }
 
+    public void updateBlindness(){
+        if (this.light.getBrightness() == Brightness.DAZZLING){
+            for (Person person: people){
+                person.setBlinded(true);
+            }
+        }
+        else {
+            for (Person person: people){
+                person.setBlinded(false);
+            }
+        }
+    }
+
     public Light getLight() {
+        updateBlindness();
         return light;
     }
 
     public void setLight(Light light) {
         this.light = light;
+        updateBlindness();
     }
 
     public ArrayList<Sun> getSuns() {
@@ -34,6 +59,7 @@ public class Enviroment {
 
     public Enviroment() {
         this.suns = new ArrayList<>();
+        this.people = new ArrayList<>();
     }
     public int getAmountOfSeenSuns(){
         int count = 0;
@@ -44,7 +70,15 @@ public class Enviroment {
         }
         return count;
     }
-
+    public int getAmountOfBlindedPeople(){
+        int count = 0;
+        for (Person person: people){
+            if (person.isBlinded()){
+                count += 1;
+            }
+        }
+        return count;
+    }
     public void updateBrightness(){
         int amountOfSeenSuns = getAmountOfSeenSuns();
         switch (amountOfSeenSuns) {

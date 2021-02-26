@@ -18,6 +18,12 @@ public class Light {
 
     public void setShape(Shape shape) {
         this.shape = shape;
+        if (this.shape == Shape.POINT){
+            setBrightness(Brightness.DAZZLING);
+        }
+        if (this.shape == Shape.CRESCENT){
+            setBrightness(Brightness.NORMAL);
+        }
     }
 
     public Light(Shape shape, Brightness brightness) {
