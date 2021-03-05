@@ -32,4 +32,14 @@ public class ArcsinFuncTest extends Assert {
         Assertions.assertEquals(Double.NaN, ArcsinFunc.arcsin(1), eps);
         Assertions.assertEquals(Double.NaN, ArcsinFunc.arcsin(-1), eps);
     }
+
+    @Test
+    public void CheckNaN() {
+        Assertions.assertEquals(Double.NaN, ArcsinFunc.arcsin(Double.NaN), eps);
+    }
+    @Test
+    public void CheckInfinity() {
+        Assertions.assertEquals(Double.NaN, ArcsinFunc.arcsin(Double.POSITIVE_INFINITY), eps);
+        Assertions.assertEquals(Double.NaN, ArcsinFunc.arcsin(-Double.POSITIVE_INFINITY), eps);
+    }
 }
