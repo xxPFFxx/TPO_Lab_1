@@ -8,14 +8,12 @@ import org.junit.Test;
 import java.util.HashMap;
 import java.util.Map;
 
-public class ArcsinUtilTest extends Assert {
+public class ArcsinFuncTest extends Assert {
     private HashMap<Double, Double> testValues = new HashMap<>();
-    public static final double delta = 0.01;
+    public static final double delta = 0.001;
 
     @Before
     public void setup(){
-        // ключ - x, значение - введенное значение - y
-
         //проверка нулевого значения
         testValues.put( 0d, 0d);
 
@@ -56,8 +54,8 @@ public class ArcsinUtilTest extends Assert {
         double expected, actual;
         for (Map.Entry entry: testValues.entrySet()){
             expected = ((Double) entry.getValue());
-            actual = Arcsin_Util.arcsin(((Double) entry.getKey()));
-            System.out.println("x = " +  ((Double) entry.getKey()) + " actual = " + actual
+            actual = ArcsinFunc.arcsin(((Double) entry.getKey()));
+            System.out.println("x = " + entry.getKey() + " actual = " + actual
                     + " expected = " + expected);
             assertEquals(expected, actual, delta);
         }
