@@ -3,43 +3,54 @@ package first_part;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.ValueSource;
 
 public class ArcsinFuncTest extends Assert {
-    double eps = 0.001;
-    @Test
-    public void CheckPositive() {
-        Assertions.assertEquals(Math.asin(0.5), ArcsinFunc.arcsin(0.5), eps);
-        Assertions.assertEquals(Math.asin(Math.sqrt(2)/2), ArcsinFunc.arcsin(Math.sqrt(2)/2), eps);
-        Assertions.assertEquals(Math.asin(Math.sqrt(3)/2), ArcsinFunc.arcsin(Math.sqrt(3)/2), eps);
+    double eps = 0.01;
+    @ParameterizedTest
+    @ValueSource(doubles = {-3.0, -30.5})
+    public void CheckNegativeUndefined(double value) {
+        Assertions.assertEquals(Math.asin(value), ArcsinFunc.arcsin(value), eps);
     }
-    @Test
-    public void CheckZero() {
-        Assertions.assertEquals(Math.asin(0), ArcsinFunc.arcsin(0), eps);
+    @ParameterizedTest
+    @ValueSource(doubles = {-0.85, -0.9})
+    public void CheckNegativeCloseToMinusOne(double value) {
+        Assertions.assertEquals(Math.asin(value), ArcsinFunc.arcsin(value), eps);
     }
-    @Test
-    public void CheckNegative() {
-        Assertions.assertEquals(Math.asin(-0.5), ArcsinFunc.arcsin(-0.5), eps);
-        Assertions.assertEquals(Math.asin(-Math.sqrt(2)/2), ArcsinFunc.arcsin(-Math.sqrt(2)/2), eps);
-        Assertions.assertEquals(Math.asin(-Math.sqrt(3)/2), ArcsinFunc.arcsin(-Math.sqrt(3)/2), eps);
+    @ParameterizedTest
+    @ValueSource(doubles = {-0.15, -0.1})
+    public void CheckNegativeCloseToZero(double value) {
+        Assertions.assertEquals(Math.asin(value), ArcsinFunc.arcsin(value), eps);
     }
-    @Test
-    public void CheckOutOfBounds() {
-        Assertions.assertEquals(Math.asin(1.001), ArcsinFunc.arcsin(1.001), eps);
-        Assertions.assertEquals(Math.asin(-1.001), ArcsinFunc.arcsin(-1.001), eps);
+    @ParameterizedTest
+    @ValueSource(doubles = {0.1, 0.15})
+    public void CheckPositiveCloseToZero(double value) {
+        Assertions.assertEquals(Math.asin(value), ArcsinFunc.arcsin(value), eps);
     }
-    @Test
-    public void CheckBounds() {
-        Assertions.assertEquals(Double.NaN, ArcsinFunc.arcsin(1), eps);
-        Assertions.assertEquals(Double.NaN, ArcsinFunc.arcsin(-1), eps);
+    @ParameterizedTest
+    @ValueSource(doubles = {0.85, 0.9})
+    public void CheckPositiveCloseToOne(double value) {
+        Assertions.assertEquals(Math.asin(value), ArcsinFunc.arcsin(value), eps);
     }
-
-    @Test
-    public void CheckNaN() {
-        Assertions.assertEquals(Double.NaN, ArcsinFunc.arcsin(Double.NaN), eps);
+    @ParameterizedTest
+    @ValueSource(doubles = {3.0, 30.5})
+    public void CheckPositiveUndefined(double value) {
+        Assertions.assertEquals(Math.asin(value), ArcsinFunc.arcsin(value), eps);
     }
-    @Test
-    public void CheckInfinity() {
-        Assertions.assertEquals(Double.NaN, ArcsinFunc.arcsin(Double.POSITIVE_INFINITY), eps);
-        Assertions.assertEquals(Double.NaN, ArcsinFunc.arcsin(-Double.POSITIVE_INFINITY), eps);
+    @ParameterizedTest
+    @ValueSource(doubles = {0.0, 0.001, -0.001})
+    public void CheckZero(double value) {
+        Assertions.assertEquals(Math.asin(value), ArcsinFunc.arcsin(value), eps);
+    }
+    @ParameterizedTest
+    @ValueSource(doubles = {1.0, 1.0+0.001})
+    public void CheckOne(double value) {
+        Assertions.assertEquals(Double.NaN, ArcsinFunc.arcsin(value), eps);
+    }
+    @ParameterizedTest
+    @ValueSource(doubles = {-1.0, -1.0-0.001})
+    public void CheckMinusOne(double value) {
+        Assertions.assertEquals(Double.NaN, ArcsinFunc.arcsin(value), eps);
     }
 }
